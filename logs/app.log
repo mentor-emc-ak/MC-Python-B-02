@@ -1,0 +1,22 @@
+2026-08-20 22:03:48 | INFO     | shop.orders              | run_batch:107 | Starting batch of 4 orders
+2026-08-20 22:03:48 | DEBUG    | shop.orders              | process_order:80 | Received order payload: {'id': 'A-1001', 'item': 'keyboard', 'qty': 2, 'card': '4111111111111111'}
+2026-08-20 22:03:48 | DEBUG    | shop.payments            | charge_card:72 | Authorising 1111 for order A-1001
+2026-08-20 22:03:48 | INFO     | shop.orders              | process_order:98 | Order A-1001 shipped (2 x keyboard, txn-A-1001)
+2026-08-20 22:03:48 | DEBUG    | shop.orders              | process_order:80 | Received order payload: {'id': 'A-1002', 'item': 'mouse', 'qty': 3, 'card': '4111111111111111'}
+2026-08-20 22:03:48 | DEBUG    | shop.payments            | charge_card:72 | Authorising 1111 for order A-1002
+2026-08-20 22:03:48 | INFO     | shop.orders              | process_order:98 | Order A-1002 shipped (3 x mouse, txn-A-1002)
+2026-08-20 22:03:48 | WARNING  | shop.orders              | process_order:102 | Stock low: mouse down to 0 units
+2026-08-20 22:03:48 | DEBUG    | shop.orders              | process_order:80 | Received order payload: {'id': 'A-1003', 'item': 'monitor', 'qty': 1, 'card': '4111111111111111'}
+2026-08-20 22:03:48 | ERROR    | shop.orders              | process_order:84 | Order A-1003 cannot ship: monitor has 0 in stock, 1 requested
+2026-08-20 22:03:48 | DEBUG    | shop.orders              | process_order:80 | Received order payload: {'id': 'A-1004', 'item': 'keyboard', 'qty': 1, 'card': 'bad-card'}
+2026-08-20 22:03:48 | DEBUG    | shop.payments            | charge_card:72 | Authorising card for order A-1004
+2026-08-20 22:03:48 | ERROR    | shop.orders              | process_order:94 | Order A-1004 payment failed
+Traceback (most recent call last):
+  File "/Users/akhshy/Workspace/EMC/mc-python-b-02/basics/logging_example.py", line 91, in process_order
+    txn = charge_card(order)
+  File "/Users/akhshy/Workspace/EMC/mc-python-b-02/basics/logging_example.py", line 74, in charge_card
+    raise PaymentDeclined(f"card number is not numeric: {order['card']!r}")
+PaymentDeclined: card number is not numeric: 'bad-card'
+2026-08-20 22:03:48 | INFO     | shop.orders              | run_batch:111 | Batch finished: 2 shipped, 2 failed
+2026-08-20 22:03:48 | CRITICAL | shop.orders              | run_batch:113 | Half or more of the batch failed (2/4), halting the queue
+2026-08-20 22:03:48 | DEBUG    | shop.orders              | run_batch:118 | Level of shop.audit.trail is NOTSET, effective level is DEBUG
