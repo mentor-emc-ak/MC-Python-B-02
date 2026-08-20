@@ -1,5 +1,5 @@
 
-from src.emc import current_batch_name, greetings
+from projects.src.emc import current_batch_name, greetings
 
 batch_name = current_batch_name()
 

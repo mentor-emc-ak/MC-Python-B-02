@@ -5,7 +5,7 @@ print("Welcome to EMC ATM machine")
 print("Let's set up your pin first")
 
 while True:
-    atm_pin = input("Create your 4 digit pin: ")
+    atm_pin = int(input("Create your 4 digit pin: "))
 
     if len(atm_pin) != 4:
         print("Pin must be exactly 4 digits, please try again...")
@@ -38,8 +38,6 @@ while True:
     user_pin = int(input("Please enter your pin to continue"))
 
     if user_pin != atm_pin:
-        print("this is user pin ", user_pin)
-        print("this is atm pin ", atm_pin)
         print("Pin did not match, please try again...")
         wrong_attempt = wrong_attempt + 1
         continue
